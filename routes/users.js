@@ -25,12 +25,14 @@ router.post("/addAdmin", function(req, res) {
     if (err) {
       console.log(err);
       if (err.sqlState == "23000") {
-        res.json({ success: false, msg: "already registerd" });
+        res.status(400).json({ success: false, msg: "already registerd" });
         return;
       }
-      res.json({ success: false, msg: "something wrong please try again" });
+      res
+        .status(400)
+        .json({ success: false, msg: "something wrong please try again" });
     } else {
-      res.json({ success: true, msg: "Users added" });
+      res.status(200).json({ success: true, msg: "Users added" });
     }
   });
 });
@@ -54,9 +56,11 @@ router.post("/adduser", function(req, res) {
         res.json({ success: false, msg: "already registerd" });
         return;
       }
-      res.json({ success: false, msg: "something wrong please try again" });
+      res
+        .status(400)
+        .json({ success: false, msg: "something wrong please try again" });
     } else {
-      res.json({ success: true, msg: "Users added" });
+      res.status(200).json({ success: true, msg: "Users added" });
     }
   });
 });
@@ -129,7 +133,9 @@ router.post("/loginadmin", function(req, res) {
       console.log(err);
     } else {
       if (user.length === 0) {
-        res.json({ sucess: false, msg: "Admin Doesnt have account" });
+        res
+          .status(400)
+          .json({ sucess: false, msg: "Admin Doesnt have account" });
       } else {
         console.log(user[0].Pass_word, "mnjnjnjnjnjnnj");
         database.comparePassword(password, user[0].Pass_word, function(
@@ -144,12 +150,13 @@ router.post("/loginadmin", function(req, res) {
               expiresIn: 604800
             });
             console.log(user[0]);
-            res.json({
+            res.status(200).json({
               state: true,
+              Id: user[0].AdminstratorId,
               token: "JWT " + token
             });
           } else {
-            res.json({ state: false, msg: "Wrong password" });
+            res.status(400).json({ state: false, msg: "Wrong password" });
           }
         });
       }
@@ -165,7 +172,9 @@ router.post("/logincustomer", function(req, res) {
       console.log(err);
     } else {
       if (user.length === 0) {
-        res.json({ sucess: false, msg: "user Doesnt have account" });
+        res
+          .status(400)
+          .json({ sucess: false, msg: "user Doesnt have account" });
       } else {
         console.log(user[0].Pass_word, "mnjnjnjnjnjnnj");
         database.comparePassword(password, user[0].Pass_word, function(
@@ -180,12 +189,13 @@ router.post("/logincustomer", function(req, res) {
               expiresIn: 604800
             });
             console.log(user[0]);
-            res.json({
+            res.status(200).json({
               state: true,
+              Id: user[0].CustemorId,
               token: "JWT " + token
             });
           } else {
-            res.json({ state: false, msg: "Wrong password" });
+            res.status(400).json({ state: false, msg: "Wrong password" });
           }
         });
       }

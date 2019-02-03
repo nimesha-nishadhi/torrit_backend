@@ -15,13 +15,14 @@ const doctor = require("./routes/doctor");
 const frontdesk = require("./routes/frontdesk");
 const patientbasichealthinfo = require("./routes/patientbasichealthinfo");
 const labreport = require("./routes/labreport");
-const appointment = require("./routes/appointment");
+
 const diseasedetail = require("./routes/diseasedetail");
 const prescription = require("./routes/prescription");
 const appSchedule = require("./routes/appSchedule");
 const medicine = require("./routes/medicine");
 const payment = require("./routes/payment");
 const currentState = require("./routes/currentState");
+const category = require("./routes/Category");
 
 const myRoute = require("./routes/myRoute");
 
@@ -72,13 +73,14 @@ app.use("/doctor", doctor);
 app.use("/frontdesk", frontdesk);
 app.use("/patientbasichealthinfo", patientbasichealthinfo);
 app.use("/labreport", labreport);
-app.use("/appointment", appointment);
+
 app.use("/diseasedetail", diseasedetail);
 app.use("/prescription", prescription);
 app.use("/appSchedule", appSchedule);
 app.use("/medicine", medicine);
 app.use("/payment", payment);
 app.use("/currentState", currentState);
+app.use("/category", category);
 
 app.use("/myRoute", myRoute);
 

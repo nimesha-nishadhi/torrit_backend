@@ -1,13 +1,13 @@
 const tables = {
-  role: {
-    createTable:
-      "CREATE TABLE role(" +
-      "roleId varchar(10)," +
-      "roleName	varchar(20)," +
-      "CONSTRAINT pk_role PRIMARY KEY (roleId))",
-    adduser: "INSERT INTO role (roleId,roleName) VALUE ?",
-    getUser: "SELECT roleId FROM role where roleId = "
-  },
+  // role: {
+  //   createTable:
+  //     "CREATE TABLE role(" +
+  //     "roleId varchar(10)," +
+  //     "roleName	varchar(20)," +
+  //     "CONSTRAINT pk_role PRIMARY KEY (roleId))",
+  //   adduser: "INSERT INTO role (roleId,roleName) VALUE ?",
+  //   getUser: "SELECT roleId FROM role where roleId = "
+  // },
 
   Administer: {
     addAdminister:
@@ -21,6 +21,10 @@ const tables = {
     getUser: "SELECT * FROM Custemor where ?",
     SelectUser: "SELECT * from Custemor WHERE email = ",
     deleteUser: "DELETE FROM Custemor WHERE email = "
+  },
+
+  Categary: {
+    addCategory: "INSERT INTO Categary(Categary_Name) VALUE ?"
   },
 
   // mlt: {
@@ -241,5 +245,6 @@ module.exports.tablesname = [
   "prescription",
   "medicine",
   "appointment",
-  "appSchedule"
+  "appSchedule",
+  " Categary"
 ];
