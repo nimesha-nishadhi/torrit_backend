@@ -7,24 +7,9 @@ const database = require("./databaseHandle/connectDatabase");
 const app = express();
 const http = require("http");
 
-const role = require("./routes/role");
 const users = require("./routes/users");
-const mlt = require("./routes/mlt");
-const patient = require("./routes/patient");
-const doctor = require("./routes/doctor");
-const frontdesk = require("./routes/frontdesk");
-const patientbasichealthinfo = require("./routes/patientbasichealthinfo");
-const labreport = require("./routes/labreport");
-
-const diseasedetail = require("./routes/diseasedetail");
-const prescription = require("./routes/prescription");
-const appSchedule = require("./routes/appSchedule");
-const medicine = require("./routes/medicine");
-const payment = require("./routes/payment");
-const currentState = require("./routes/currentState");
-const category = require("./routes/Category");
-
 const myRoute = require("./routes/myRoute");
+const category = require("./routes/Category");
 
 //set port
 const port = 3000;
@@ -65,24 +50,9 @@ app.get("/", function(req, res) {
   });
 });
 
-app.use("/role", role);
 app.use("/users", users);
-app.use("/mlt", mlt);
-app.use("/patient", patient);
-app.use("/doctor", doctor);
-app.use("/frontdesk", frontdesk);
-app.use("/patientbasichealthinfo", patientbasichealthinfo);
-app.use("/labreport", labreport);
-
-app.use("/diseasedetail", diseasedetail);
-app.use("/prescription", prescription);
-app.use("/appSchedule", appSchedule);
-app.use("/medicine", medicine);
-app.use("/payment", payment);
-app.use("/currentState", currentState);
-app.use("/category", category);
-
 app.use("/myRoute", myRoute);
+app.use("/category", category);
 
 app.use((req, res, next) => {
   const error = new Error("Not Found");

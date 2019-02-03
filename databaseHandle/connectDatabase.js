@@ -59,25 +59,6 @@ function createTables(sql) {
   });
 }
 
-// fuction for add users in to user table
-// module.exports.addNewUser = function InsertUser(user, callback) {
-//   //console.log(user, "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
-//   bcrypt.genSalt(10, function(err, salt) {
-//     bcrypt.hash(user[4], salt, function(err, hash) {
-//       if (err) {
-//         throw err;
-//       }
-//       user[4] = hash;
-//       console.log(user, "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
-//       con.query(
-//         tableSchema.tables.Administer.addAdminister,
-//         [[user]],
-//         callback
-//       );
-//     });
-//   });
-// };
-
 module.exports.addUsers = function(data, callback) {
   console.log(data, "qwertyuiertyuiop");
 
@@ -132,6 +113,19 @@ module.exports.selectUser = function(data, callback) {
   console.log(data, "ddfgdfgdf");
   con.query(
     tableSchema.tables.Customer.SelectUser + mysql.escape(data),
+    callback
+  );
+};
+
+module.exports.addCategory = function(data, callback) {
+  console.log(data, "wqwqwqwqwqw");
+  con.query(tableSchema.tables.Categary.addCategory, [[data]], callback);
+};
+
+module.exports.selectCategory = function(data, callback) {
+  console.log(data, "wqwqwqwqwqw");
+  con.query(
+    tableSchema.tables.Categary.selectCategory + mysql.escape(data),
     callback
   );
 };
