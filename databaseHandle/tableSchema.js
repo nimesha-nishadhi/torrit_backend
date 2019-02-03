@@ -15,26 +15,12 @@ const tables = {
     selectAdminister: "SELECT * FROM Adminstrator WHERE Email = "
   },
 
-  users: {
-    createTable:
-      "CREATE TABLE users (" +
-      " NIC VARCHAR(15)," +
-      " firstName VARCHAR(255)," +
-      "lastName VARCHAR(255)," +
-      " contactNo INT(10)," +
-      "email VARCHAR(255) unique," +
-      "password VARCHAR(32)," +
-      "addNo VARCHAR(255)," +
-      "addStreet VARCHAR(255)," +
-      " addCity VARCHAR(255)," +
-      "roleId varchar(10)," +
-      "CONSTRAINT pk_users PRIMARY KEY (NIC)," +
-      "CONSTRAINT fk_users_role FOREIGN KEY (roleId) REFERENCES role(roleId) ON DELETE CASCADE)",
-    adduser:
-      "INSERT INTO users(NIC,firstName,lastName,contactNo,email,password,addNo,addStreet,addCity,roleId) VALUE ?",
-    getUser: "SELECT * FROM users where ?",
-    SelectUser: "SELECT * from users WHERE email = ",
-    deleteUser: "DELETE FROM users WHERE email = "
+  Customer: {
+    addCustomer:
+      "INSERT INTO Custemor(FirstName,LastName,Email,MobileNo,Pass_word,Add_ress) VALUE ?",
+    getUser: "SELECT * FROM Custemor where ?",
+    SelectUser: "SELECT * from Custemor WHERE email = ",
+    deleteUser: "DELETE FROM Custemor WHERE email = "
   },
 
   // mlt: {
