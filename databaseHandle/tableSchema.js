@@ -16,9 +16,14 @@ const tables = {
   Categary: {
     addCategory: "INSERT INTO Categary(Categary_Name) VALUE ?",
     selectCategory: "SELECT * FROM Categary WHERE Categary_Name = "
+  },
+
+  Product: {
+    addProduct: "INSERT INTO Product(productName,quantity,description,cost,reorderLevel,imageURL) VALUE ?",
+    selectProduct: "SELECT * FROM Product WHERE productName = "
   }
 };
 
 module.exports.tables = tables;
 
-module.exports.tablesname = ["users", "Customer", " Categary"];
+module.exports.tablesname = ["users", "Customer", " Categary", "Product"];

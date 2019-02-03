@@ -10,6 +10,7 @@ const http = require("http");
 const users = require("./routes/users");
 const myRoute = require("./routes/myRoute");
 const category = require("./routes/Category");
+const product = require("./routes/Product")
 
 //set port
 const port = 3000;
@@ -53,6 +54,7 @@ app.get("/", function(req, res) {
 app.use("/users", users);
 app.use("/myRoute", myRoute);
 app.use("/category", category);
+app.use("/product", product)
 
 app.use((req, res, next) => {
   const error = new Error("Not Found");

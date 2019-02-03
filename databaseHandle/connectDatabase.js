@@ -129,3 +129,16 @@ module.exports.selectCategory = function(data, callback) {
     callback
   );
 };
+
+module.exports.addProduct = function(data, callback) {
+  console.log(data, "add product");
+  con.query(tableSchema.tables.Product.addProduct, [[data]], callback);
+};
+
+module.exports.selectProduct = function(data, callback) {
+  console.log(data, "select product");
+  con.query(
+    tableSchema.tables.Product.selectProduct + mysql.escape(data),
+    callback
+  );
+};
