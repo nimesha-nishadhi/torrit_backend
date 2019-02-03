@@ -15,13 +15,13 @@ router.post("/addAdmin", function(req, res) {
     req.body.firstName,
     req.body.lastName,
     req.body.email,
-    req.body.password,
-    req.body.mobileNo
+    req.body.mobileNo,
+    req.body.password
   ];
 
   console.log(usersData);
   database.addUsers(usersData, function(err, result) {
-    console.log(usersData, "ppppppppppppppppp");
+    // console.log(usersData, "ppppppppppppppppp");
     if (err) {
       console.log(err);
       if (err.sqlState == "23000") {
@@ -35,62 +35,98 @@ router.post("/addAdmin", function(req, res) {
   });
 });
 //get
-router.post("/getuser", function(req, res) {
-  console.log("getting");
-  var nic = req.body.nic;
-  console.log(req.body.nic);
+// router.post("/getuser", function(req, res) {
+//   console.log("getting");
+//   var nic = req.body.nic;
+//   console.log(req.body.nic);
 
-  database.getUser(nic, (err, data) => {
-    if (err) throw err;
-    //console.log(user);
-    if (!data) {
-      //console.log(err);
-      res.json({ success: false, msg: "User not found" });
-    } else {
-      console.log(data);
-      res.json({ data });
-    }
-  });
-});
+//   database.getUser(nic, (err, data) => {
+//     if (err) throw err;
+//     //console.log(user);
+//     if (!data) {
+//       //console.log(err);
+//       res.json({ success: false, msg: "User not found" });
+//     } else {
+//       console.log(data);
+//       res.json({ data });
+//     }
+//   });
+// });
 
-router.post("/addPatient", function(req, res) {
-  const usersData = [
-    req.body.NIC,
-    req.body.firstName,
-    req.body.lastName,
-    req.body.contactNo,
-    req.body.email,
-    req.body.password,
-    req.body.addNo,
-    req.body.addStreet,
-    req.body.addCity,
-    req.body.roleId
-  ];
+// router.post("/addPatient", function(req, res) {
+//   const usersData = [
+//     req.body.NIC,
+//     req.body.firstName,
+//     req.body.lastName,
+//     req.body.contactNo,
+//     req.body.email,
+//     req.body.password,
+//     req.body.addNo,
+//     req.body.addStreet,
+//     req.body.addCity,
+//     req.body.roleId
+//   ];
 
-  const patientData = [
-    req.body.patientId,
-    req.body.dob,
-    req.body.occupation,
-    req.body.bloodType,
-    req.body.maritalState,
-    req.body.height,
-    req.body.weight,
-    req.body.NIC
-  ];
+//   const patientData = [
+//     req.body.patientId,
+//     req.body.dob,
+//     req.body.occupation,
+//     req.body.bloodType,
+//     req.body.maritalState,
+//     req.body.height,
+//     req.body.weight,
+//     req.body.NIC
+//   ];
 
-  database.addUsers(usersData, function(err, result) {
+//   database.addUsers(usersData, function(err, result) {
+//     if (err) {
+//       console.log(err);
+//       res.json({ success: false, msg: "something wrong please try again" });
+//     } else {
+//       database.addPatient(patientData, function(err, result) {
+//         if (err) {
+//           console.log(err);
+//           res.json({ success: false, msg: "something wrong please try again" });
+//         } else {
+//           res.json({ success: true, msg: "Patient added" });
+//         }
+//       });
+//     }
+//   });
+// });
+
+router.post("/loginadmin", function(req, res) {
+  const email = req.body.email;
+  const password = req.body.password;
+  database.selectAdmin(email, function(err, user) {
     if (err) {
       console.log(err);
-      res.json({ success: false, msg: "something wrong please try again" });
     } else {
-      database.addPatient(patientData, function(err, result) {
-        if (err) {
-          console.log(err);
-          res.json({ success: false, msg: "something wrong please try again" });
-        } else {
-          res.json({ success: true, msg: "Patient added" });
-        }
-      });
+      if (user.length === 0) {
+        res.json({ sucess: false, msg: "Admin Doesnt have account" });
+      } else {
+        console.log(user[0].Pass_word, "mnjnjnjnjnjnnj");
+        database.comparePassword(password, user[0].Pass_word, function(
+          err,
+          isMatch
+        ) {
+          if (err) {
+            console.log(err);
+          }
+          if (isMatch) {
+            const token = jwt.sign(toObject(user), config.secret, {
+              expiresIn: 604800
+            });
+            console.log(user[0]);
+            res.json({
+              state: true,
+              token: "JWT " + token
+            });
+          } else {
+            res.json({ state: false, msg: "Wrong password" });
+          }
+        });
+      }
     }
   });
 });
@@ -99,7 +135,6 @@ router.post("/login", function(req, res, next) {
   // console.log(req,"cfvgbnvgbhnj")
   const username = req.body.email;
   const password = req.body.password;
-  const roleid = req.body.role;
 
   // console.log(username,password,"xcvbn");
   database.selectUser(username, function(err, user) {
@@ -110,6 +145,7 @@ router.post("/login", function(req, res, next) {
       if (user.length === 0) {
         res.json({ success: false, msg: "Wrong password" });
       } else {
+        console.log(user);
         database.comparePassword(password, user[0].password, function(
           err,
           isMatch

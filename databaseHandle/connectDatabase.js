@@ -98,4 +98,18 @@ module.exports.addUsers = function(data, callback) {
 
 module.exports.selectAdmin = function(data, callback) {
   console.log(data, "ddfgdfgdf");
+  con.query(
+    tableSchema.tables.Administer.selectAdminister + mysql.escape(data),
+    callback
+  );
+};
+
+module.exports.comparePassword = function(password, hash, callback) {
+  bcrypt.compare(password, hash, function(err, isMatch) {
+    if (err) {
+      console.log(err);
+    } else {
+      callback(null, isMatch);
+    }
+  });
 };

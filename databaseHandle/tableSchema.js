@@ -12,7 +12,7 @@ const tables = {
   Administer: {
     addAdminister:
       "INSERT INTO Adminstrator(FirstName,LastName,Email,MobileNo,Pass_word) VALUE ?",
-    selectAdminister: "SELECT * FROM Adminstrator WHERE Email = ?"
+    selectAdminister: "SELECT * FROM Adminstrator WHERE Email = "
   },
 
   users: {
